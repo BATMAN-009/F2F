@@ -1,0 +1,53 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+.next/
+.turbo/
+dist/
+build/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+.pnpm-store/
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Docker / compose
+*.pid
+
+# Local data dirs (created by docker-compose volumes if mounted to repo)
+.data/
+data/
+
+# Blender artifacts
+*.blend1
+*.blend2
