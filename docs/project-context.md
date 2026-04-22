@@ -78,9 +78,54 @@ post-MVP pillars are tracked in `project-roadmap.md`.
 - The pipeline service (FastAPI) owns all business logic: provider abstraction,
   job orchestration, asset management, and the database.
 - Celery workers run the long-running pieces: Tripo API calls, Blender format
-  conversion, texture application.
+  conversion, texture application, and manufacturability analysis.
 - The Blender add-on talks directly to the pipeline service to pull assets into a
   user's local Blender.
+
+### Cross-Cutting Principle — The Design Ledger
+
+Every asset carries an **immutable provenance record**. Every meaningful step in the
+pipeline — input upload, provider call (with model + version + seed), prompt,
+regeneration, texture change, dimension change, export, print — is appended as an
+event to an append-only ledger keyed by `asset_id`.
+
+The ledger is:
+- **Immutable** — events are inserted, never updated or deleted.
+- **Exportable** — any asset's full history can be dumped as JSON.
+- **Queryable** — the History UI (Feature 15) renders it as a provenance timeline.
+- **Foundational** — Pillar 2 (match-to-market) needs input history; Pillar 3
+  (manufacturer outreach) needs full spec provenance; Pillar 4 (vertical apps)
+  surfaces it as the "decision audit" for art directors, architects, and clients.
+
+Ledger event categories (defined in Feature 02):
+
+| Category | Example |
+|---|---|
+| `input` | Image uploaded, multi-view set complete, prompt submitted |
+| `generation` | Tripo call started/completed, model version, seed, cost |
+| `edit` | Texture applied, dimensions set, mesh repaired |
+| `export` | Format exported, file hash, size |
+| `analysis` | Manufacturability report produced (watertightness, wall thickness, CO₂e) |
+| `handoff` | Opened in Blender via add-on, downloaded, shared |
+| `print` | (post-v1.0) Print job submitted / completed |
+
+All new features MUST emit appropriate ledger events. This is a first-class concern,
+not an afterthought.
+
+### Cross-Cutting Principle — Manufacturability
+
+"Print-ready" is part of the product, not an afterthought. Feature 11
+(Manufacturability Analysis) is the v1.0 delivery point, but every feature touching
+geometry (09 dimensions, 10 export, future parametric variants) must respect these
+constraints: watertight, manifold, wall-thickness-safe for the target material.
+
+### Cross-Cutting Principle — AI-Agent Addressable Engine
+
+The engine is exposed through three equal interfaces: a **web UI**, a **REST API**,
+and an **MCP server**. MCP (Model Context Protocol) makes F2F invokable as a tool by
+any compatible AI agent (Claude, ChatGPT, Cursor, etc.). The MCP surface is a thin
+wrapper over the REST API — shipped in Feature 14 — and is a v1.0 deliverable, not
+post-MVP polish.
 
 ### Project Structure
 
@@ -94,7 +139,7 @@ F2F/
 │
 ├── web/                            # Next.js 14 + TS + R3F + model-viewer
 │   ├── app/                        # App-router routes (the "multiple UI surfaces")
-│   ├── components/                 # UI + 3D viewer + AR viewer
+│   ├── components/                 # UI + 3D viewer + AR viewer + ledger viewer
 │   ├── lib/                        # API client, utilities
 │   ├── public/
 │   ├── package.json
@@ -105,7 +150,10 @@ F2F/
 │   │   ├── routes/                 # Public/engine REST routes
 │   │   ├── providers/              # Tripo + future AI providers
 │   │   ├── pipeline/               # Mesh, texture, dimension, export steps
-│   │   ├── models/                 # SQLAlchemy models
+│   │   ├── ledger/                 # Design Ledger: event model + append + query API
+│   │   ├── manufacturability/      # Watertight/thickness/overhang/stability analyzers
+│   │   ├── mcp/                    # MCP server wrapper over the REST API
+│   │   ├── models/                 # SQLAlchemy models (incl. ledger tables)
 │   │   ├── schemas/                # Pydantic schemas
 │   │   └── main.py
 │   ├── alembic/                    # Migrations
@@ -113,7 +161,7 @@ F2F/
 │   └── pyproject.toml
 │
 ├── worker/                         # Celery + Blender headless
-│   ├── tasks/                      # convert, texture, package
+│   ├── tasks/                      # convert, texture, package, analyze
 │   ├── blender_scripts/            # Standalone .py scripts run by `blender -b -P`
 │   └── pyproject.toml
 │
@@ -143,6 +191,9 @@ F2F/
 |---|---|---|
 | Split web from AI pipeline | Two services connected by a job queue | Web stays light + edge-friendly; pipeline runs long jobs on heavier hosts |
 | AI provider abstraction | `Provider` interface; Tripo as first impl | Enables swapping/adding providers without changing pipeline |
+| **Design Ledger (immutable provenance)** | Append-only event log keyed by `asset_id`, written from every pipeline step | Foundation for Pillars 2/3/4; cheap now, impossible to retrofit; moat feature |
+| **Manufacturability as a product surface** | Dedicated analysis step (Feature 11) between export and AR, using trimesh + Blender headless | Delivers on sustainable-furniture positioning; prevents print failures; differentiates from "mesh-only" competitors |
+| **MCP server as a v1.0 interface** | Thin wrapper over REST API, shipped in Feature 14 | Makes F2F a tool any AI agent can call; 2026 distribution leverage |
 | Blender as universal converter | Yes (headless, called from worker) | Single dependency covers every export format |
 | AR via `<model-viewer>` | Yes | One tag ships USDZ on iOS + glTF on Android |
 | Multiple "engine routes" | UI surfaces + REST API + multiple input modes | Matches the "multiple routes" requirement |
