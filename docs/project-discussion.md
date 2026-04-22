@@ -204,22 +204,34 @@ F2F/
 | Feature Idea | Priority | Notes / Dependencies |
 |---|---|---|
 | Project foundation (monorepo, lint, CI, docker-compose) | 🔴 Must Have | Feature 01 |
-| Auth + user accounts (Clerk) | 🔴 Must Have | Before any protected route |
-| Core data model (users, projects, assets, jobs) | 🔴 Must Have | Foundation for everything |
+| Core data model + **Design Ledger** | 🔴 Must Have | Feature 02 — foundation for all later features and Pillars 2/3/4 |
+| Auth + user accounts (Clerk) | 🟡 Should Have | Deferred to v1.1 per MVP scope |
 | Tripo 3D provider integration (single image) | 🔴 Must Have | Wraps the external AI |
 | Multi-view input → Tripo | 🔴 Must Have | Extension of single-image |
 | In-browser 3D preview (R3F) | 🔴 Must Have | Needed before texture/dimension UX |
 | Custom texturing + resolution controls | 🔴 Must Have | Differentiator |
 | Real-world dimensions (H×W×D) | 🔴 Must Have | Print-ready requirement |
-| Multi-format export pipeline (Blender worker) | 🔴 Must Have | STL/USD/FBX/OBJ/3MF |
-| AR viewer (model-viewer) | 🔴 Must Have | Core value prop |
+| Multi-format export pipeline (Blender worker) | 🔴 Must Have | STL/USD/FBX/OBJ/3MF + auto-remesh/watertight |
+| **Manufacturability Analysis** | 🔴 Must Have | Feature 11 — the F2F moment |
+| AR viewer (`<model-viewer>`) | 🔴 Must Have | Core value prop |
 | Blender add-on | 🔴 Must Have | DCC hand-off |
-| Public engine API routes | 🔴 Must Have | "Multiple routes" requirement |
+| Public engine API routes + **MCP server** | 🔴 Must Have | "Multiple routes" + AI-agent addressable |
 | Job queue + worker infra (Celery + Redis) | 🔴 Must Have | Supports all pipeline features |
-| Project/asset history UI | 🟡 Should Have | Quality-of-life; listed in MVP but rankable lower |
+| Project/asset history UI + **ledger viewer** | 🔴 Must Have | Quality-of-life + provenance visibility |
+| Parametric variants (scale/material/topology + hollow) | 🟡 Should Have | Target v1.1 — reframes UX |
+| Iterative refinement (delta-edits via Blender) | 🟡 Should Have | Target v1.1 — saves provider spend |
+| Decision Engine (unifies Pillars 2 + 3) | 🟡 Should Have | Target v1.2 — single post-export screen |
+| Multi-provider racing (Tripo + Meshy + Hunyuan3D) | 🟢 Nice to Have | v1.1+ |
+| Depth / LiDAR capture (iPhone via WebXR) | 🟡 Should Have | v1.1+ — beats photo input |
+| Evaluation harness (golden-set regression) | 🟡 Should Have | v1.1 |
+| OpenTelemetry + Jaeger | 🟡 Should Have | v1.1 |
+| Version tree UI (Figma-style) | 🟡 Should Have | v1.1+ — feeds off Design Ledger |
+| Live multiplayer R3F viewer | 🟡 Should Have | Critical for v1.3 vertical (film/TV) |
+| QR passport on physical product → ledger | 🟢 Nice to Have | Closes the loop |
+| Reprint / remix button | 🟢 Nice to Have | Drives repeat revenue |
 | Maya add-on | 🟢 Nice to Have | v1.1 |
 | Direct manufacturing submission | 🟢 Nice to Have | v1.1+ |
-| Payments / checkout | 🟢 Nice to Have | Business layer, after MVP |
+| Payments / checkout | 🟢 Nice to Have | Business layer — v1.2 with Pillar 3 |
 | In-browser mesh editing | 🟢 Nice to Have | Or never — DCC covers it |
 
 ## Conventions & Standards Discussion
@@ -291,6 +303,11 @@ stay here; if research becomes extensive, promote to `research.md` per framework
 | 2026-04-23 | Local storage = MinIO (S3-compatible) | Dev parity with future cloud R2/S3 |
 | 2026-04-23 | First vertical (v1.3+) = Film/TV prop previsualization | User priority |
 | 2026-04-23 | Visual-search vendor for v1.1 = decide during v1.1 discussion | Defer to its own feature discussion |
+| 2026-04-23 | **Design Ledger** (immutable provenance event log) added as v1.0 cross-cutting concern; folded into Feature 02 | Foundational data for Pillars 2/3/4; trivial now, impossible to retrofit; strategic moat — user-approved |
+| 2026-04-23 | **Manufacturability Analysis** added as new v1.0 Feature 11 (between Export and AR) | Delivers sustainable-furniture positioning in-product; prevents print failures; the "F2F moment" — user-approved |
+| 2026-04-23 | **MCP server** added as v1.0 interface; folded into Feature 14 (Public API) | Makes F2F callable by any AI agent (Claude/ChatGPT/Cursor); 2026 distribution leverage — user-approved |
+| 2026-04-23 | **Decision Engine** (unifies Pillars 2 + 3 into one post-export screen) scheduled for v1.2 | Reframes separate features as one coherent UX |
+| 2026-04-23 | **Parametric variants** and **Iterative refinement** scheduled for v1.1 | Reframes F2F from "generate" to "decide"; reduces provider API spend |
 
 ## Discussion Complete ✅
 
