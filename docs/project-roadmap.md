@@ -12,8 +12,8 @@
 |---|---|
 | Total Features (v1.0) | 15 |
 | 🟢 Complete | 0 |
-| 🟡 In Progress | 0 |
-| 🔴 Not Started | 15 |
+| 🟡 In Progress | 1 |
+| 🔴 Not Started | 14 |
 | ⏸️ On Hold | 0 |
 
 **Overall v1.0 Progress**: ░░░░░░░░░░ 0%
@@ -24,7 +24,7 @@
 
 | # | Feature | Status | Depends On | Branch | Notes |
 |---|---|---|---|---|---|
-| 01 | Project foundation | 🔴 Not Started | — | — | Monorepo, docker-compose (PG + Redis + MinIO + api + worker + web), lint/format, CI |
+| 01 | Project foundation | � In Progress | — | `feature/01-project-foundation` | Monorepo, docker-compose (PG + Redis + MinIO + api + worker + web), lint/format, CI |
 | 02 | Core data model + FastAPI skeleton + **Design Ledger** | 🔴 Not Started | #01 | — | `projects`, `assets`, `jobs` tables; **immutable provenance / event-log tables** capturing inputs, provider+model+seed, prompts, iterations, dimension history, material history, print history; SQLAlchemy + Alembic; health route |
 | 03 | Next.js web app skeleton | 🔴 Not Started | #01 | — | App Router, layout, API client, R3F provider |
 | 04 | Job queue infrastructure | 🔴 Not Started | #02 | — | Celery + Redis wiring, retry policy, dead-letter, example task |
