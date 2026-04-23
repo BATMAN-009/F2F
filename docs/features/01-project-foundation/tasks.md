@@ -3,8 +3,8 @@
 > **Feature**: `01` — Project Foundation
 > **Architecture**: [`architecture.md`](architecture.md)
 > **Branch**: `feature/01-project-foundation`
-> **Status**: 🔴 NOT STARTED
-> **Progress**: 0/56 tasks complete
+> **Status**: � IN PROGRESS
+> **Progress**: 36/56 tasks complete
 
 ---
 
@@ -21,11 +21,11 @@
 
 > Top-level config files that every subsequent phase depends on.
 
-- [ ] **A.1** — Create `.editorconfig` (LF, UTF-8, 2-space indent for TS/JSON/YAML, 4-space for Python, final newline)
-- [ ] **A.2** — Create `.gitattributes` (`* text=auto eol=lf`; binary flags for common image/mesh extensions)
-- [ ] **A.3** — Create `.env.example` per architecture doc
-- [ ] **A.4** — Verify `.env` and `.env.*` (except `.env.example`) are already in root `.gitignore` (confirmed from project-init commit)
-- [ ] 📍 **Checkpoint A** — Files exist; `.env.example` matches the architecture table exactly
+- [x] **A.1** — Create `.editorconfig` (LF, UTF-8, 2-space indent for TS/JSON/YAML, 4-space for Python, final newline)
+- [x] **A.2** — Create `.gitattributes` (`* text=auto eol=lf`; binary flags for common image/mesh extensions)
+- [x] **A.3** — Create `.env.example` per architecture doc
+- [x] **A.4** — Verify `.env` and `.env.*` (except `.env.example`) are already in root `.gitignore` (confirmed from project-init commit)
+- [x] 📍 **Checkpoint A** — Files exist; `.env.example` matches the architecture table exactly
 
 ---
 
@@ -33,53 +33,53 @@
 
 > The pipeline orchestration service. Ships with `/healthz` and `/tasks/ping` only.
 
-- [ ] **B.1** — Create `api/pyproject.toml` with dependencies: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `celery`, `redis`, `pydantic-settings`, `boto3`, `httpx`; dev: `pytest`, `pytest-asyncio`, `ruff`
-- [ ] **B.2** — Create `api/ruff.toml` per architecture
-- [ ] **B.3** — Create `api/app/__init__.py`, `api/app/config.py` (pydantic-settings `Settings` class), `api/app/db.py` (SQLAlchemy engine + `SessionLocal` + `DeclarativeBase`)
-- [ ] **B.4** — Create `api/app/celery_app.py` (Celery client configured with `REDIS_URL`; no tasks registered here — just dispatch)
-- [ ] **B.5** — Create `api/app/routes/__init__.py`, `api/app/routes/health.py` with `GET /healthz` that checks DB (`SELECT 1`) and Redis (`PING`) and returns status JSON
-- [ ] **B.6** — Create `api/app/routes/tasks.py` with `GET /tasks/ping` (dispatches) and `GET /tasks/ping/{task_id}` (returns result)
-- [ ] **B.7** — Create `api/app/main.py`: FastAPI app, register routers, CORS for `http://localhost:3000`
-- [ ] **B.8** — Create stub packages + README markers: `api/app/ledger/`, `api/app/manufacturability/`, `api/app/mcp/`, `api/app/providers/`, `api/app/pipeline/`, `api/app/models/`, `api/app/schemas/`
-- [ ] **B.9** — Create `api/alembic.ini`, `api/alembic/env.py`, `api/alembic/script.py.mako`, `api/alembic/versions/0001_baseline.py` (empty `upgrade`/`downgrade`)
-- [ ] **B.10** — Create `api/tests/__init__.py`, `api/tests/conftest.py` (TestClient fixture), `api/tests/test_health.py` (asserts `GET /healthz` returns 200 and has `status` key)
-- [ ] **B.11** — Run `uv sync` in `api/` to generate `uv.lock`; commit the lockfile
-- [ ] **B.12** — Run `ruff check .` and `ruff format --check .` in `api/` → fix anything until clean
-- [ ] **B.13** — Run `pytest` in `api/` → ensure `test_health` passes (monkey-patch DB/Redis to up for this test)
-- [ ] 📍 **Checkpoint B** — `uv run pytest` green; `ruff check .` green; `ruff format --check .` green
+- [x] **B.1** — Create `api/pyproject.toml` with dependencies: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `celery`, `redis`, `pydantic-settings`, `boto3`, `httpx`; dev: `pytest`, `pytest-asyncio`, `ruff`
+- [x] **B.2** — Create `api/ruff.toml` per architecture
+- [x] **B.3** — Create `api/app/__init__.py`, `api/app/config.py` (pydantic-settings `Settings` class), `api/app/db.py` (SQLAlchemy engine + `SessionLocal` + `DeclarativeBase`)
+- [x] **B.4** — Create `api/app/celery_app.py` (Celery client configured with `REDIS_URL`; no tasks registered here — just dispatch)
+- [x] **B.5** — Create `api/app/routes/__init__.py`, `api/app/routes/health.py` with `GET /healthz` that checks DB (`SELECT 1`) and Redis (`PING`) and returns status JSON
+- [x] **B.6** — Create `api/app/routes/tasks.py` with `GET /tasks/ping` (dispatches) and `GET /tasks/ping/{task_id}` (returns result)
+- [x] **B.7** — Create `api/app/main.py`: FastAPI app, register routers, CORS for `http://localhost:3000`
+- [x] **B.8** — Create stub packages + README markers: `api/app/ledger/`, `api/app/manufacturability/`, `api/app/mcp/`, `api/app/providers/`, `api/app/pipeline/`, `api/app/models/`, `api/app/schemas/`
+- [x] **B.9** — Create `api/alembic.ini`, `api/alembic/env.py`, `api/alembic/script.py.mako`, `api/alembic/versions/0001_baseline.py` (empty `upgrade`/`downgrade`)
+- [x] **B.10** — Create `api/tests/__init__.py`, `api/tests/conftest.py` (TestClient fixture), `api/tests/test_health.py` (asserts `GET /healthz` returns 200 and has `status` key)
+- [x] **B.11** — Run `uv sync` in `api/` to generate `uv.lock`; commit the lockfile
+- [x] **B.12** — Run `ruff check .` and `ruff format --check .` in `api/` → fix anything until clean
+- [x] **B.13** — Run `pytest` in `api/` → ensure `test_health` passes (monkey-patch DB/Redis to up for this test)
+- [x] 📍 **Checkpoint B** — `uv run pytest` green; `ruff check .` green; `ruff format --check .` green
 
 ---
 
 ## Phase C — Worker Service (Python / Celery + Blender)
 
-- [ ] **C.1** — Create `worker/pyproject.toml` with dependencies: `celery`, `redis`, `pydantic-settings`; dev: `pytest`, `ruff`
-- [ ] **C.2** — Create `worker/ruff.toml` (identical to api's)
-- [ ] **C.3** — Create `worker/worker/__init__.py`, `worker/worker/config.py`, `worker/worker/celery_app.py` (Celery app; broker+backend from `REDIS_URL`; autodiscover `worker.tasks`)
-- [ ] **C.4** — Create `worker/worker/tasks/__init__.py`, `worker/worker/tasks/ping.py` — `@app.task(name="tasks.ping")` that runs `blender --version`, returns `f"pong | {blender_version}"`. Gracefully handle absence of Blender (return `"pong | blender: unavailable"`) so the test suite runs without Blender installed on the host.
-- [ ] **C.5** — Create `worker/blender_scripts/smoke.py` — hello-world script runnable via `blender -b -P smoke.py` (prints a known string)
-- [ ] **C.6** — Create `worker/tests/test_ping.py` — invokes `ping` synchronously via `.apply()` (eager mode) and asserts result starts with `"pong"`
-- [ ] **C.7** — Run `uv sync` in `worker/`; commit lockfile
-- [ ] **C.8** — Run `ruff check .` and `ruff format --check .` in `worker/` → fix until clean
-- [ ] **C.9** — Run `pytest` in `worker/` → green
-- [ ] 📍 **Checkpoint C** — All worker checks green without requiring Blender on host
+- [x] **C.1** — Create `worker/pyproject.toml` with dependencies: `celery`, `redis`, `pydantic-settings`; dev: `pytest`, `ruff`
+- [x] **C.2** — Create `worker/ruff.toml` (identical to api's)
+- [x] **C.3** — Create `worker/worker/__init__.py`, `worker/worker/config.py`, `worker/worker/celery_app.py` (Celery app; broker+backend from `REDIS_URL`; autodiscover `worker.tasks`)
+- [x] **C.4** — Create `worker/worker/tasks/__init__.py`, `worker/worker/tasks/ping.py` — `@app.task(name="tasks.ping")` that runs `blender --version`, returns `f"pong | {blender_version}"`. Gracefully handle absence of Blender (return `"pong | blender: unavailable"`) so the test suite runs without Blender installed on the host.
+- [x] **C.5** — Create `worker/blender_scripts/smoke.py` — hello-world script runnable via `blender -b -P smoke.py` (prints a known string)
+- [x] **C.6** — Create `worker/tests/test_ping.py` — invokes `ping` synchronously via `.apply()` (eager mode) and asserts result starts with `"pong"`
+- [x] **C.7** — Run `uv sync` in `worker/`; commit lockfile
+- [x] **C.8** — Run `ruff check .` and `ruff format --check .` in `worker/` → fix until clean
+- [x] **C.9** — Run `pytest` in `worker/` → green
+- [x] 📍 **Checkpoint C** — All worker checks green without requiring Blender on host
 
 ---
 
 ## Phase D — Web Service (Next.js 14 + TS + Tailwind)
 
-- [ ] **D.1** — Scaffold `web/` with `package.json` (name `@f2f/web`, private, scripts: `dev`, `build`, `start`, `lint`, `format`, `format:check`, `test`, `test:watch`), engines `node>=20`, packageManager `pnpm@9.x`
-- [ ] **D.2** — Add deps: `next@14`, `react@18`, `react-dom@18`, `tailwindcss`, `postcss`, `autoprefixer`
-- [ ] **D.3** — Add dev deps: `typescript`, `@types/node`, `@types/react`, `@types/react-dom`, `eslint`, `eslint-config-next`, `eslint-config-prettier`, `prettier`, `vitest`, `@vitejs/plugin-react`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`
-- [ ] **D.4** — Create `tsconfig.json`, `next.config.mjs`, `tailwind.config.ts` (content globs for `app/**`, `components/**`), `postcss.config.mjs`, `.eslintrc.json`, `.prettierrc`, `vitest.config.ts` (jsdom env)
-- [ ] **D.5** — Create `app/globals.css` with `@tailwind base; @tailwind components; @tailwind utilities;`
-- [ ] **D.6** — Create `app/layout.tsx` (HTML shell, imports globals.css), `app/page.tsx` (centered landing with title + `<HealthBadge />`)
-- [ ] **D.7** — Create `lib/api.ts` — `apiFetch(path)` using `process.env.NEXT_PUBLIC_API_BASE`
-- [ ] **D.8** — Create `components/HealthBadge.tsx` — client component, calls `/healthz`, renders colored dot + status
-- [ ] **D.9** — Create `tests/smoke.test.ts` — trivial passing test (`expect(1 + 1).toBe(2)`) so Vitest is wired
-- [ ] **D.10** — Create `public/favicon.ico` (placeholder 16×16 solid-color PNG renamed, or tiny blank ICO)
-- [ ] **D.11** — Run `pnpm install` in `web/`; commit `pnpm-lock.yaml`
-- [ ] **D.12** — Run `pnpm lint` → clean; `pnpm format:check` → clean; `pnpm test` → green
-- [ ] 📍 **Checkpoint D** — `pnpm build` succeeds (static build smoke)
+- [x] **D.1** — Scaffold `web/` with `package.json` (name `@f2f/web`, private, scripts: `dev`, `build`, `start`, `lint`, `format`, `format:check`, `test`, `test:watch`), engines `node>=20`, packageManager `pnpm@9.x`
+- [x] **D.2** — Add deps: `next@14`, `react@18`, `react-dom@18`, `tailwindcss`, `postcss`, `autoprefixer`
+- [x] **D.3** — Add dev deps: `typescript`, `@types/node`, `@types/react`, `@types/react-dom`, `eslint`, `eslint-config-next`, `eslint-config-prettier`, `prettier`, `vitest`, `@vitejs/plugin-react`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`
+- [x] **D.4** — Create `tsconfig.json`, `next.config.mjs`, `tailwind.config.ts` (content globs for `app/**`, `components/**`), `postcss.config.mjs`, `.eslintrc.json`, `.prettierrc`, `vitest.config.ts` (jsdom env)
+- [x] **D.5** — Create `app/globals.css` with `@tailwind base; @tailwind components; @tailwind utilities;`
+- [x] **D.6** — Create `app/layout.tsx` (HTML shell, imports globals.css), `app/page.tsx` (centered landing with title + `<HealthBadge />`)
+- [x] **D.7** — Create `lib/api.ts` — `apiFetch(path)` using `process.env.NEXT_PUBLIC_API_BASE`
+- [x] **D.8** — Create `components/HealthBadge.tsx` — client component, calls `/healthz`, renders colored dot + status
+- [x] **D.9** — Create `tests/smoke.test.ts` — trivial passing test (`expect(1 + 1).toBe(2)`) so Vitest is wired
+- [x] **D.10** — Create `public/favicon.ico` (placeholder 16×16 solid-color PNG renamed, or tiny blank ICO)
+- [x] **D.11** — Run `pnpm install` in `web/`; commit `pnpm-lock.yaml`
+- [x] **D.12** — Run `pnpm lint` → clean; `pnpm format:check` → clean; `pnpm test` → green
+- [x] 📍 **Checkpoint D** — `pnpm build` succeeds (static build smoke)
 
 ---
 
