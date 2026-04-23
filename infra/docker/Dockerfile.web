@@ -1,0 +1,22 @@
+# syntax=docker/dockerfile:1.7
+FROM node:20-slim
+
+ENV NODE_ENV=development \
+    PNPM_HOME=/root/.local/share/pnpm \
+    PATH=/root/.local/share/pnpm:$PATH
+
+# Enable pnpm via corepack (bundled with Node 20)
+RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+
+WORKDIR /app
+
+# Cache-friendly dependency layer
+COPY web/package.json web/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+# Application code
+COPY web/ .
+
+EXPOSE 3000
+
+CMD ["pnpm", "dev", "--hostname", "0.0.0.0"]

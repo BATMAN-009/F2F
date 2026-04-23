@@ -4,7 +4,7 @@
 > **Architecture**: [`architecture.md`](architecture.md)
 > **Branch**: `feature/01-project-foundation`
 > **Status**: � IN PROGRESS
-> **Progress**: 36/56 tasks complete
+> **Progress**: 53/56 tasks complete
 
 ---
 
@@ -85,41 +85,41 @@
 
 ## Phase E — Blender Add-on Scaffold
 
-- [ ] **E.1** — Create `addons/blender/f2f_addon/__init__.py` with valid `bl_info` and empty `register()` / `unregister()` stubs
-- [ ] **E.2** — Create `addons/blender/f2f_addon/README.md` — note this is reserved for Feature 13
-- [ ] **E.3** — Create `addons/maya/README.md` — note this is reserved for v1.1
-- [ ] 📍 **Checkpoint E** — Folder layout matches architecture tree
+- [x] **E.1** — Create `addons/blender/f2f_addon/__init__.py` with valid `bl_info` and empty `register()` / `unregister()` stubs
+- [x] **E.2** — Create `addons/blender/f2f_addon/README.md` — note this is reserved for Feature 13
+- [x] **E.3** — Create `addons/maya/README.md` — note this is reserved for v1.1
+- [x] 📍 **Checkpoint E** — Folder layout matches architecture tree
 
 ---
 
 ## Phase F — Infra & docker-compose
 
-- [ ] **F.1** — Create `infra/docker/Dockerfile.api` per architecture (python:3.12-slim, uv, copy api/, `uv sync`, uvicorn CMD)
-- [ ] **F.2** — Create `infra/docker/Dockerfile.worker` (python:3.12-slim, uv, apt blender+xvfb+libgl1, copy worker/, `uv sync`, celery CMD)
-- [ ] **F.3** — Create `infra/docker/Dockerfile.web` (node:20-slim, corepack enable pnpm, copy web/, pnpm install, dev CMD)
-- [ ] **F.4** — Create `infra/minio/create-buckets.sh` — uses `mc` to configure alias and `mb --ignore-existing` the `f2f-assets` bucket
-- [ ] **F.5** — Create `docker-compose.yml` per architecture service table, including healthchecks and `depends_on` with `condition: service_healthy`
-- [ ] **F.6** — Create `infra/scripts/dev.ps1` and `infra/scripts/dev.sh` — thin wrappers: `up`, `down`, `logs [svc]`, `migrate`, `shell [svc]`
-- [ ] 📍 **Checkpoint F** — `docker compose config` validates with no errors
+- [x] **F.1** — Create `infra/docker/Dockerfile.api` per architecture (python:3.12-slim, uv, copy api/, `uv sync`, uvicorn CMD)
+- [x] **F.2** — Create `infra/docker/Dockerfile.worker` (python:3.12-slim, uv, apt blender+xvfb+libgl1, copy worker/, `uv sync`, celery CMD)
+- [x] **F.3** — Create `infra/docker/Dockerfile.web` (node:20-slim, corepack enable pnpm, copy web/, pnpm install, dev CMD)
+- [x] **F.4** — Create `infra/minio/create-buckets.sh` — uses `mc` to configure alias and `mb --ignore-existing` the `f2f-assets` bucket
+- [x] **F.5** — Create `docker-compose.yml` per architecture service table, including healthchecks and `depends_on` with `condition: service_healthy`
+- [x] **F.6** — Create `infra/scripts/dev.ps1` and `infra/scripts/dev.sh` — thin wrappers: `up`, `down`, `logs [svc]`, `migrate`, `shell [svc]`
+- [x] 📍 **Checkpoint F** — `docker compose config` validates with no errors
 
 ---
 
 ## Phase G — CI
 
-- [ ] **G.1** — Create `.github/workflows/ci.yml` with 6 jobs per architecture (lint-web, test-web, lint-api, test-api, lint-worker, test-worker)
-- [ ] **G.2** — Triggers: `push` on `feature/**` and `hotfix/**`; `pull_request` on `main`
-- [ ] **G.3** — Use `actions/setup-node@v4` (node 20) and `actions/setup-python@v5` (python 3.12); install `uv` via `astral-sh/setup-uv@v3`; install `pnpm` via `pnpm/action-setup@v4` (version 9)
-- [ ] **G.4** — Cache dependencies (`pnpm store`, `uv cache`)
+- [x] **G.1** — Create `.github/workflows/ci.yml` with 6 jobs per architecture (lint-web, test-web, lint-api, test-api, lint-worker, test-worker)
+- [x] **G.2** — Triggers: `push` on `feature/**` and `hotfix/**`; `pull_request` on `main`
+- [x] **G.3** — Use `actions/setup-node@v4` (node 20) and `actions/setup-python@v5` (python 3.12); install `uv` via `astral-sh/setup-uv@v3`; install `pnpm` via `pnpm/action-setup@v4` (version 9)
+- [x] **G.4** — Cache dependencies (`pnpm store`, `uv cache`)
 - [ ] 📍 **Checkpoint G** — After push, all 6 jobs appear and pass on GitHub
 
 ---
 
 ## Phase H — Documentation Updates
 
-- [ ] **H.1** — Update top-level `README.md` "Getting Started" section with real working commands: clone → `cp .env.example .env` → `docker compose up -d` → `alembic upgrade head` → open URLs
-- [ ] **H.2** — Update `README.md` "Development Workflow" section: how to run tests locally per service, how to lint, how to invoke CI manually
-- [ ] **H.3** — Add a "Troubleshooting" subsection noting: MinIO bucket creation timing, Blender image size, first-boot `pnpm install` time
-- [ ] 📍 **Checkpoint H** — A first-time reader can go from clone to working stack using only README
+- [x] **H.1** — Update top-level `README.md` "Getting Started" section with real working commands: clone → `cp .env.example .env` → `docker compose up -d` → `alembic upgrade head` → open URLs
+- [x] **H.2** — Update `README.md` "Development Workflow" section: how to run tests locally per service, how to lint, how to invoke CI manually
+- [x] **H.3** — Add a "Troubleshooting" subsection noting: MinIO bucket creation timing, Blender image size, first-boot `pnpm install` time
+- [x] 📍 **Checkpoint H** — A first-time reader can go from clone to working stack using only README
 
 ---
 

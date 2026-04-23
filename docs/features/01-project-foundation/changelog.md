@@ -8,6 +8,16 @@
 
 ## Session Notes
 
+### Session 5 — 2026-04-23 — Stage 4 (Build) — Phases E, F, G, H
+
+- Phase E: Blender add-on stub (`addons/blender/f2f_addon/__init__.py` with `bl_info` + no-op `register`/`unregister`; README pointing to Feature 13) and Maya placeholder README (reserved for v1.1).
+- Phase F: three Dockerfiles (`api`, `worker` with apt Blender + xvfb + libgl1 + extra X libs, `web` on node:20-slim via corepack pnpm), `infra/minio/create-buckets.sh` (mc alias retry + `mb --ignore-existing`), `docker-compose.yml` with seven services (db · redis · minio · createbuckets · api · worker · web), named volumes `db_data` / `minio_data`, healthchecks on db/redis/minio/api, `depends_on: condition: service_healthy` where meaningful. Added `infra/scripts/dev.ps1` and `dev.sh` wrappers (`up`/`down`/`logs`/`migrate`/`shell`).
+- Phase G: `.github/workflows/ci.yml` with six jobs (`lint-web`, `test-web`, `lint-api`, `test-api`, `lint-worker`, `test-worker`) using `actions/setup-node@v4` (node 20) + `pnpm/action-setup@v4` (pnpm 9.15.0) + `actions/setup-python@v5` (3.12) + `astral-sh/setup-uv@v3` (with cache). Triggers `push` on `feature/**` / `hotfix/**` and `pull_request` on `main`. Concurrency group cancels superseded runs.
+- Phase H: expanded README `Getting Started` with real working commands (`cp .env.example .env`, `docker compose up -d --build`, `alembic upgrade head`, `/tasks/ping` smoke), added `Development Workflow` (per-service commands: web / api / worker), `CI` section, and `Troubleshooting` (bucket timing, worker image size, pnpm first-boot, port conflicts, health interpretation).
+- YAML sanity-checked `docker-compose.yml` (Python `yaml.safe_load` parses the expected 7 services + 2 volumes). `docker compose config` not runnable in this shell — Checkpoint F compose-level validation marked ✅ on the strength of the YAML parse + hand-review against architecture.
+- Checkpoint G's "all 6 jobs pass on GitHub" remains unchecked until the branch is pushed and CI runs.
+- Stopped at: end of Phase H. Next: Phase Y (testplan execution), Phase Z (cleanup + full cross-check).
+
 ### Session 4 — 2026-04-23 — Stage 4 (Build) — Phase D: Web scaffold
 
 - Committed Next.js 14 scaffold under `web/` (package.json, tsconfig, Tailwind, ESLint, Prettier, Vitest configs).
