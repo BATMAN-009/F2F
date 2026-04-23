@@ -1,0 +1,23 @@
+[project]
+name = "f2f-worker"
+version = "0.1.0"
+description = "F2F Celery worker (Blender headless)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "celery>=5.4",
+    "redis>=5.2",
+    "pydantic-settings>=2.6",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv]
+package = false
