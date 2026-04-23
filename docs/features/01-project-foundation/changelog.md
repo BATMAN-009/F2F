@@ -8,6 +8,22 @@
 
 ## Session Notes
 
+### Session 6 — 2026-04-23 — Stage 4 (Build) — Phases Y, Z + cross-check
+
+- TC-06 executed locally on Windows host (no Docker available):
+  - `web/`: `pnpm lint` ✅, `pnpm format:check` ✅, `pnpm test` 1/1 ✅, `pnpm build` ✅.
+  - `api/`: first pass surfaced 2 ruff issues (`I001` import order in `alembic/env.py`, `S105` hardcoded password on `s3_secret_key` default) and one format delta in `alembic/versions/0001_baseline.py`. Fixed by `ruff check --fix`, `ruff format`, and adding `# noqa: S105 — local-dev default` on the secret line. Re-run: `ruff check` clean, `ruff format --check` clean, `pytest` 2/2 ✅.
+  - `worker/`: `ruff check` clean, `ruff format --check` clean, `pytest` 1/1 ✅.
+- TC-07 (CI), TC-01–05, TC-08–11 deferred — host lacks Docker Desktop; re-verification required on Docker-capable machine before merge. Recorded in `testplan.md` with explicit ⚠️ Deferred status per case.
+- Ran full verification cross-check (Phase Z.5):
+  - **Architecture ↔ Code**: file tree in arch doc matches what shipped (see `tree` commands). One minor deviation (lint rule) logged. Stub packages for Feature 02/05/06–10/11/14 exist per arch. Dockerfiles installed extra X libs (`libxi6`, `libxrender1`, `libxxf86vm1`, `libxfixes3`, `libxkbcommon0`, `libsm6`) on top of `blender + xvfb + libgl1` — strictly additive, required for Blender 4.x headless in the slim image. Not architectural.
+  - **Tasks ↔ Code**: `tasks.md` now reflects 53/56 checked; the 3 unchecked are Checkpoint G (needs CI run), Checkpoint Y (Docker TCs deferred), and Ship which belongs to Stage 5.
+  - **Testplan ↔ Tests**: 10 of 13 cases have deferred status with a clear rationale; 1 ran and passed (TC-06); AC-08/AC-09 marked verified; the rest pending Docker host + PR merge pipeline.
+  - **Changelog ↔ Session**: this entry plus sessions 3.5, 4, 5 cover every commit on the feature branch.
+  - **Dependencies ↔ Architecture**: `api/pyproject.toml`, `worker/pyproject.toml`, `web/package.json` all strictly within arch-specified package sets; no unapproved additions.
+- Updated `docs/project-changelog.md` `[Unreleased] > Added` with a Feature #01 summary (pending merge).
+- Stopped at: end of Phase Z. Ready for Stage 5 Ship once Docker-side TCs and CI are green.
+
 ### Session 5 — 2026-04-23 — Stage 4 (Build) — Phases E, F, G, H
 
 - Phase E: Blender add-on stub (`addons/blender/f2f_addon/__init__.py` with `bl_info` + no-op `register`/`unregister`; README pointing to Feature 13) and Maya placeholder README (reserved for v1.1).

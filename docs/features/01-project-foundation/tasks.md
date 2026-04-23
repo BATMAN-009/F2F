@@ -3,8 +3,8 @@
 > **Feature**: `01` — Project Foundation
 > **Architecture**: [`architecture.md`](architecture.md)
 > **Branch**: `feature/01-project-foundation`
-> **Status**: � IN PROGRESS
-> **Progress**: 53/56 tasks complete
+> **Status**: 🟡 IN PROGRESS (awaiting Stage 5 Ship on Docker-capable host)
+> **Progress**: 59/68 checkpoints complete (local build ✓; Docker-runtime TCs + CI deferred)
 
 ---
 
@@ -127,28 +127,28 @@
 
 > Full test plan at [`testplan.md`](testplan.md).
 
-- [ ] **Y.1** — TC-01 happy path: fresh clone + `docker compose up -d` + open all 3 URLs
-- [ ] **Y.2** — TC-02 `/healthz` reports `db: up`, `redis: up`
-- [ ] **Y.3** — TC-03 `/tasks/ping` round-trip returns `pong | Blender ...`
-- [ ] **Y.4** — TC-04 MinIO bucket `f2f-assets` exists after startup
-- [ ] **Y.5** — TC-05 `alembic upgrade head` succeeds on a fresh DB
-- [ ] **Y.6** — TC-06 Each service's lint + unit tests pass locally
-- [ ] **Y.7** — TC-07 CI workflow green on the PR for this feature
-- [ ] **Y.8** — TC-08 Stopping the stack (`docker compose down`) is clean; restarting it preserves DB and MinIO state
-- [ ] **Y.9** — TC-09 (negative) Missing `TRIPO_API_KEY` does NOT break Feature 01 services (used from Feature 05)
-- [ ] **Y.10** — TC-10 (negative) API gracefully reports `db: down` when PostgreSQL is stopped
-- [ ] 📍 **Checkpoint Y** — All test cases pass; `testplan.md` summary filled in
+- [ ] **Y.1** — TC-01 happy path: fresh clone + `docker compose up -d` + open all 3 URLs _(deferred — host lacks Docker)_
+- [ ] **Y.2** — TC-02 `/healthz` reports `db: up`, `redis: up` _(deferred — host lacks Docker; endpoint unit-tested)_
+- [ ] **Y.3** — TC-03 `/tasks/ping` round-trip returns `pong | Blender ...` _(deferred — host lacks Docker; task eager-tested)_
+- [ ] **Y.4** — TC-04 MinIO bucket `f2f-assets` exists after startup _(deferred — host lacks Docker)_
+- [ ] **Y.5** — TC-05 `alembic upgrade head` succeeds on a fresh DB _(deferred — host lacks Docker)_
+- [x] **Y.6** — TC-06 Each service's lint + unit tests pass locally
+- [ ] **Y.7** — TC-07 CI workflow green on the PR for this feature _(deferred — awaits push + PR)_
+- [ ] **Y.8** — TC-08 Stopping the stack (`docker compose down`) is clean; restarting it preserves DB and MinIO state _(deferred — host lacks Docker)_
+- [ ] **Y.9** — TC-09 (negative) Missing `TRIPO_API_KEY` does NOT break Feature 01 services (used from Feature 05) _(deferred — host lacks Docker)_
+- [ ] **Y.10** — TC-10 (negative) API gracefully reports `db: down` when PostgreSQL is stopped _(deferred — host lacks Docker)_
+- [ ] 📍 **Checkpoint Y** — All test cases pass; `testplan.md` summary filled in _(partial: local TC-06 pass; Docker-dependent TCs + CI deferred to next host)_
 
 ---
 
 ## Phase Z — Documentation & Cleanup
 
-- [ ] **Z.1** — Inline comments only where logic is non-obvious (Alembic env.py, docker healthcheck gotchas)
-- [ ] **Z.2** — Update `docs/features/01-project-foundation/changelog.md` with final session note + deviations from plan
+- [x] **Z.1** — Inline comments only where logic is non-obvious (Alembic env.py, docker healthcheck gotchas)
+- [x] **Z.2** — Update `docs/features/01-project-foundation/changelog.md` with final session note + deviations from plan
 - [ ] **Z.3** — Update `docs/project-roadmap.md`: mark Feature 01 as 🟢 Complete after merge
-- [ ] **Z.4** — Update `docs/project-changelog.md` `[Unreleased] > Added`: "Feature #01 — Project Foundation"
-- [ ] **Z.5** — Perform **full verification cross-check** per Mastery rules (architecture ↔ code, tasks ↔ code, testplan ↔ tests, changelog ↔ session, dependencies ↔ architecture); log result in feature changelog
-- [ ] 📍 **Checkpoint Z** — Self-review all diffs on `feature/01-project-foundation` branch
+- [x] **Z.4** — Update `docs/project-changelog.md` `[Unreleased] > Added`: "Feature #01 — Project Foundation"
+- [x] **Z.5** — Perform **full verification cross-check** per Mastery rules (architecture ↔ code, tasks ↔ code, testplan ↔ tests, changelog ↔ session, dependencies ↔ architecture); log result in feature changelog
+- [x] 📍 **Checkpoint Z** — Self-review all diffs on `feature/01-project-foundation` branch
 
 ---
 

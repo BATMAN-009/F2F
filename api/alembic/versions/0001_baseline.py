@@ -6,6 +6,7 @@ Create Date: 2026-04-23
 
 Empty baseline so Alembic has a head. Feature 02 introduces real models.
 """
+
 from __future__ import annotations
 
 revision = "0001"

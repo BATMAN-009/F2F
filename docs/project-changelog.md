@@ -10,6 +10,15 @@
 
 ### Added
 - *(no shipped features yet — first feature is `01-project-foundation`)*
+- **Feature #01 — Project Foundation** _(pending merge)_ — Monorepo scaffold:
+  `api/` (FastAPI + `/healthz` + `/tasks/ping` + Alembic baseline + stub
+  packages for ledger/manufacturability/mcp/providers/pipeline/models/schemas),
+  `worker/` (Celery + Blender-ready ping task), `web/` (Next.js 14 +
+  TypeScript + Tailwind + Vitest + `HealthBadge`), `addons/` (Blender add-on
+  stub + Maya placeholder), `infra/docker/` (3 Dockerfiles), `docker-compose.yml`
+  (db + redis + minio + createbuckets + api + worker + web with healthchecks
+  and named volumes), MinIO bucket sidecar, `.github/workflows/ci.yml` (6
+  advisory jobs), README getting-started + troubleshooting.
 
 ### Changed
 - **Roadmap expansion (2026-04-23)** — v1.0 expanded from 14 to 15 features:

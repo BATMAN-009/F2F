@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     s3_endpoint: str = "http://minio:9000"
     s3_bucket: str = "f2f-assets"
     s3_access_key: str = "f2fminio"
-    s3_secret_key: str = "f2fminio-secret"
+    s3_secret_key: str = "f2fminio-secret"  # noqa: S105 — local-dev default; prod secrets come from .env
 
     tripo_api_key: str = ""
     tripo_api_base: str = "https://api.tripo3d.ai"
